@@ -24,17 +24,34 @@ class App extends Component {
       .then((data) => {
         // this.setState({categories:data});
         this.setState({posts: data});
-        console.log(this.state.posts)
+        let info = JSON.stringify(this.state.posts)
+        console.log(info)
       });
   }
 
   render() {
 
-    const obj = this.state.posts;
+    let obj = this.state.posts
+    // var keys = [];
+    // var data = [];
+    // for (var key in obj) {
+    //     if (obj.hasOwnProperty(key)) {
+    //         keys.push(key);
+    //         data.push(obj[key]); // Not necessary, but cleaner, in my opinion. See the example below.
+    //     }
+    // }
+    //
+    // console.log(Object.entries(obj))
+    // console.log(keys)
+    // console.log(data)
    let arr;
    if (obj) {
      arr = Object.values(obj); //Converting an Object into an array
+     // arr = Object.keys(obj);
+     // arr = Object.entries(obj);
+     // console.log(arr)
    }
+   console.log(Array.from(arr))
 
     return (
       <div className="App">
@@ -45,16 +62,28 @@ class App extends Component {
 
 
           Talking to the categories yields these categories: <br/>
+          <hr/>1:
           {/* {this.state.categories} */}
           {this.state.posts}
+          <hr/>2:
+          {obj}
+
+          <hr/>3:
+          {arr}
+          <hr/>
             <div>
                 { arr ?
                   <div>
-                    { arr.map(post => {
+                    { arr.filter((post, id) => {
                         return (
-                          <div key={post.id}>
-                            {post.title}
-                          </div>
+                          <ul key={id}>
+                            <li >
+                              {post}
+                            </li>
+                          </ul>
+
+
+                          )}
                         )
                       })
                     }
